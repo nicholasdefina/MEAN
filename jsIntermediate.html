@@ -1,0 +1,48 @@
+<html>
+<body>
+    <div id="part I">
+        Hello World!
+    </div> 
+<script>
+    function starString(num)
+    {
+        var stars = "";
+        for (var i= 0; i< num; i++)
+        {
+            stars+="*"
+        }
+        console.log(stars)
+    }
+    starString(8);
+
+    function drawStars(arr)
+    {
+        for (var j = 0; j<arr.length; j++)
+        {
+            if (arr[j] instanceof Number || typeof(arr[j])==='number')
+            {
+                var stars = ""
+                for (var k = 0; k < arr[j]; k++)
+                {
+                    stars +="*"
+                }
+                console.log(stars);
+            }
+            else if (arr[j] instanceof String || typeof(arr[j])==='string')
+            {
+                var letters = "";
+                for (var letter in arr[j])
+                {
+                  letters+= arr[j][0]
+                }
+                console.log(letters)
+            }
+        }
+    }
+    let x = [2,"bandana",9];
+    drawStars(x);
+
+    
+</script>   
+</body>
+</html>
