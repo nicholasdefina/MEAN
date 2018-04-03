@@ -1,7 +1,7 @@
 function Ninja(name)
 {
-    const speed = 3;
-    const strength = 3;
+    this.speed = 3;
+    this.strength = 3;
     this.health = 100;
     this.name = name;
 
@@ -11,8 +11,8 @@ function Ninja(name)
 
     this.showStats = function()
     {
-        console.log(strength);
-        console.log(speed);
+        console.log(this.strength);
+        console.log(this.speed);
         console.log(this.health);
     }
 
@@ -35,8 +35,8 @@ function Ninja(name)
     {
         if (ninja instanceof Ninja)
         {
-            ninja.health -=15;
-            console.log(ninja.name + " was kicked by" + this.name + " and lost 15 health. Health now at " +ninja.health)
+            ninja.health -=this.strength*15;
+            console.log(ninja.name + " was kicked by" + this.name + " and lost " + this.strength*15 + " health. Health now at " +ninja.health)
         }
     }
 }
