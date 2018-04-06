@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript"></script>
+    <script>
+            $(document).ready(function () // this triggers the connection event in our server!
+            {
+                var socket = io.connect();
+                socket.on('counter_update', function(data) //counter_update is the event name, second param is a json
+                {
+
+                    console.log("Server says", data.response)
+                    console.log("Counter now at", data.counter)
+                    document.getElementById("counter").innerHTML="";
+                    document.getElementById('counter').innerHTML=data.counter;
+                });
+                
+                $("#push").click(function(event) 
+                {
+                    event.preventDefault(); //The event.preventDefault() method stops the default action of an element from happening. Prevent a submit button from submitting a form. Prevent a link from following the URL
+                    console.log("push button clicked")
+                    socket.emit("push",{  //cpush is the event name, second param is a json
+                        counter: $("#counter").text()
+                    });
+                });
+
+                $('#reset').click(function(event)
+                {
+                    event.preventDefault();
+                    console.log("reset button clicked")
+                    socket.emit("reset");
+                    });
+                });
+    </script>
+</head >
+
+    <body>
+        <div id="wrapper">
+            <h2> Epic number game</h2>
+
+            <h3>This button has been pushed <span id = "counter">0</span> time(s)</h3>
+
+
+            <button id="push">Push to increase</button>
+
+            <button id="reset">Reset the count</button>
+
+        </div>
+    </body>
+
+</html>

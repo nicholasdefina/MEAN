@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Counter</title>
+</head>
+<body>
+    
+    <h1> Counter </h1>
+
+<p>This page has been refreshed <%=counter%> times.</p>
+
+
+<form action="/add2" method="post">
+    <input id="add2" type ="submit" value="add 2 to counter">
+</form>
+
+<form action="/reset" method="post">
+    <input id="reset" type ="submit" value="reset counter">
+</form>
+
+</body>
+</html>

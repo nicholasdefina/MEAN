@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document). ready(function (){
+           var socket  = io.connect();
+           $( 'form#surveyform').submit(function (){
+               socket.emit( "posting_form", $(this).serializeArray());
+               return false;
+           });
+           socket.on( 'updated_msg', function (data){
+               let jsonresult = JSON.stringify(data);
+               $("div#result").append("Your Information emitted by the server is: " + jsonresult);
+            });
+            socket.on('random', function (data){
+               $("div#results").append("Your lucky number emitted by the server is: " + data.random + "!")
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <div id="result">
+        <!-- FORM RESULTS WILL GO HERE -->
+    </div>
+    <br>
+    <div id="results">
+            <!-- RANDOM NUMBER RESULTS WILL GO HERE -->
+    </div>
+
+        <form action="/submission" id="surveyform" method="post">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name">
+            <label for="location"></label>
+            <select name="location" id="location">
+                <option value="Chicago">Chicago</option>
+                <option value="San Jose">San Jose</option>
+                <option value="New York">New York</option>
+            </select>
+            <label for="language"></label>
+            <select name="language" id="language">
+                <option value="Python">Python</option>
+                <option value="C#">C#</option>
+                <option value="HTML">HTML</option>
+            </select>
+            <label for="comments"></label>
+            <textarea name="comments" id="comments" placeholder="Comments" cols="15" rows="5"></textarea>
+            <button type="submit" id="button">Submit</button>
+
+        </form>
+
+    </body>
+
+</html>
