@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Edit this animal</h3>
+    <h5> <a href="/">Or go back to home page</a></h5>
+    <form action="/update/<%=animal._id%>" method="post">
+        <label for="name">Name: </label>
+        <input type="text" value="<%=animal.name%>" name="name">
+        <label for="species">Species: </label>
+        <input type="text" value="<%=animal.species%>" name="species">
+        <label for="interests">Interests: </label>
+        <input type="text" value="<%=animal.interests%>" name="interests">
+        <button id="update" name="button" value="update animal">Update!</button>
+    </form>
+    <% if(typeof(errors) != 'undefined' ) { %>
+        <% for (var x in errors) { %>
+         <h3><%= errors[x].message %></h3>
+        <% } %>
+    <% } %>
+
+</body>
+</html>
