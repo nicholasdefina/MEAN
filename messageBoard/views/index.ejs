@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>The Dojo Message Board</h1>
+
+    <h3>Add a new post</h3>
+
+    <form action="/addpost" method="post">
+        <label for="name">Name</label>
+        <input type="text" name="name">
+        <label for="text">Message</label>
+        <textarea name="message" id="" cols="30" rows="7"></textarea>
+        <button id="postmessage">Post Message</button>
+    </form>
+
+    <br>
+    <h2>Here are all the posts!</h2>
+    <br>
+
+    <%for(var post of allposts) {%>
+        <h3>Name:
+            <%=post.name%>
+        </h3>
+        <h3>Message:
+            <%=post.message%>
+        </h3>
+        <% for(var comment of post.comments){%>
+            <h4>Name: <%=comment.name%> </h4>
+            <h4>Comment: <%=comment.message%> </h4>
+            <p>------------------------------------------------------</p>
+            <%console.log(post,"this is the post")%>
+            <%console.log(comment, "this is the comment")%>
+            
+
+                    <%  } %>
+                        <form action="/comment/<%=post._id%>" method="post">
+                            <label for="name">Name</label>
+                            <input type="text" name="comment_name">
+                            <label for="text">Message</label>
+                            <textarea name="comment_message" cols="30" rows="5"></textarea>
+                            <button id="postcomment">Post Comment</button>
+                        </form>
+                        <p>__________________________________________________________________________________</p>
+                        <% } %>
+
+</body>
+
+</html>
