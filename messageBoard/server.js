@@ -68,16 +68,15 @@ app.get("/", function (req, res) {
     })
 })
 
-app.post("/addpost", function(req,res){
-    var post = new Post({name: req.body.name, message: req.body.message});
+app.post("/addpost", function (req, res) {
+    var post = new Post({ name: req.body.name, message: req.body.message });
 
-    post.save(function(err){
-        if(err){
-            res.render("index", {errors: post.errors})
+    post.save(function (err) {
+        if (err) {
+            res.render("index", { errors: post.errors })
         }
 
-        else
-        {
+        else {
             res.redirect("/");
         }
     })
@@ -101,9 +100,11 @@ app.post('/comment/:id', function (req, res) {
     Post.findOne({ _id: req.params.id }, function (err, post) {
         // data from form on the front end
         var comment = new Comment( //setting comment and tying to post
-            {name:req.body.comment_name,
+            {
+                name: req.body.comment_name,
                 message: req.body.comment_message,
-                _post: post._id});
+                _post: post._id
+            });
         // now save both to the DB
         comment.save(function (err) {
             post.comments.push(comment);
@@ -116,11 +117,11 @@ app.post('/comment/:id', function (req, res) {
             });
         });
     });
-    
+
 });
 
 
-    // Tell the express app to listen on port 8000
-    var server = app.listen(8000, function () {
-        console.log("listening on port 8000");
-    });
+// Tell the express app to listen on port 8000
+var server = app.listen(8000, function () {
+    console.log("listening on port 8000");
+});
