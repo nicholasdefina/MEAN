@@ -139,7 +139,7 @@ app.post("/register", function (req, res)
             }
             else
             {
-                res.redirect("/");
+                res.json({"Password Error": "Passwords do not match."})
             }
         }
     })
