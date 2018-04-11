@@ -46,7 +46,7 @@ var UserSchema = new mongoose.Schema({  //defining user schema
     email: { type: String, required: true, unique: true },
 
     password: {
-        type: String, required: true, minlength: 8, maxlength: 32,
+        type: String, required: true, minlength: 8,
         validate:
             {
                 validator: function (value) {
@@ -97,12 +97,12 @@ app.post("/register", function (req, res)
         {
 
             if (req.body.password == req.body.confirm) {
-                
+                var hash = bcrypt.hashSync(req.body.password,8)
                 var user = new User({
                     first: req.body.first,
                     last: req.body.last,
                     email: req.body.email,
-                    password: bcrypt.hash(req.body.password, bcrypt.genSaltSync(5)),
+                    password: hash,
                     birthday: req.body.birthday
                 });
                 console.log(user)
@@ -127,9 +127,9 @@ app.post("/register", function (req, res)
     })
 })
     
-app.get("/login", function(req,res)
+app.post("/login", function(req,res)
 {
-    User.find({email: req.body.email}, function (err, user)
+    User.find({email: req.body.email}, function (err, user) //this is grabbing an array of users, which is an array of 1 in this case
     {
         if(err)
         {
@@ -139,9 +139,11 @@ app.get("/login", function(req,res)
         {
             if(user.length>0) //check if there is a list of user objects greater than 0, if yes user exists
             {
-                if (bcrypt.compareSync(req.body.password,user[0].password))
+                    console.log(user[0].password, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                if(bcrypt.compareSync(req.body.password, user[0].password))
                 {
-                    req.session.userid=user._id;
+                    console.log(user.password);
+                    req.session.userid=user[0]._id;
                     var thisUser = req.session.userid;
                     res.redirect("/success");
                 }
