@@ -67,7 +67,26 @@ app.get("/", function (req, res)
 
 })
 
-app.get("/:id/", function(req,res){
+app.get("/tasks", function (req, res) 
+{
+    console.log("root works")
+    Task.find({}, function (err, tasks) 
+    {
+        if(err)
+        {
+            res.json({message: "Error", error:err})
+        }
+        else
+        {
+            res.json({tasks:tasks})
+        }
+    })
+
+})
+
+
+
+app.get("/viewtask/:id", function(req,res){
     Task.findOne({_id: req.params.id}, function(err,task){
         if(err)
         {
@@ -75,13 +94,13 @@ app.get("/:id/", function(req,res){
         }
         else
         {
-            res.json({task})
+            res.json({task:task})
         }
     })
 })
 
-app.get("/new/:title/:description/", function(req,res){
-    var task = new Task({title:req.params.title, description:req.params.description})
+app.post("/addTask", function(req,res){
+    var task = new Task({title:req.body.title, description:req.body.description})
     task.save(function(err){
         if(err)
         {
@@ -89,13 +108,13 @@ app.get("/new/:title/:description/", function(req,res){
         }
         else
         {
-            res.redirect("/")
+            res.json({task:task})
         }
     })
 })
 
 
-app.get("/remove/:id/", function(req,res){
+app.delete("/viewtask/:id/", function(req,res){
     Task.remove({_id: req.params.id}, function(err){
         if(err)
         {
@@ -103,21 +122,21 @@ app.get("/remove/:id/", function(req,res){
         }
         else
         {
-            res.redirect('/')
+            res.json('success')
         }
     })
 })
 
 
-app.put("/:id/", function(req,res){
-    var task = Task.update({_id:req.params.id},{title:req.body.title, description:req.body.description, complete:req.body.completed}, function(err,task){
+app.put("/viewtask/:id/", function(req,res){
+    Task.update({_id:req.params.id},{title:req.body.title, description:req.body.description}, function(err,task){
         if(err)
         {
             res.json({error:err})
         }
         else
         {
-            res.redirect("/")
+            res.json('successful update')
         }
     })
 })

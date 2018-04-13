@@ -42,15 +42,15 @@ var Schema = mongoose.Schema; //define Schema variable
 var UserSchema = new mongoose.Schema({  //defining user schema
     first:{ type: String, required: true, minlength: 2, 
         validate: {
-            validator: function(fname){
-                return /^[a-z ,.'-]+$/i.test(fname);
+            validator: function(first){
+                return /^[a-z ,.'-]+$/i.test(first);
             },
             message: "First Name cannot contain any special characters!"
         }},
     last: { type: String, required: true, minlength: 2,
         validate: {
-            validator: function(lname){
-                return /^[a-z ,.'-]+$/i.test(lname);
+            validator: function(last){
+                return /^[a-z ,.'-]+$/i.test(last);
             },
             message: "Last Name cannot contain any special characters!"
         } },
