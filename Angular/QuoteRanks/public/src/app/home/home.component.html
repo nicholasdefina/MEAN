@@ -1,0 +1,8 @@
+<a [routerLink]="['/new']">Add an author</a>  <!-- routerlink in an A tag to new route in routing module-->
+<div *ngFor="let author of authors">  <!--cycle through each author object-->
+    <h4>{{ author['name'] }}</h4>
+    <button class="btn btn-secondary" [routerLink]="['/viewQuotes', author['_id']]">View quotes</button>
+    <button class="btn btn-primary" [routerLink]="['/edit', author['_id']]">Edit</button>
+    <button class="btn btn-danger" (click)="delete(author['_id'])">Delete</button>
+
+</div>

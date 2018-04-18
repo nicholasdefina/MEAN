@@ -1,0 +1,7 @@
+<input type="text" class="form-control" [(ngModel)]="name">
+<br>
+<button class="btn btn-primary" (click)="createAuthor()" [disabled]="!name">Add this author</button> <!--button disabled if no name exists-->
+<button class="btn btn-danger" (click)="cancel()">Cancel</button>
+
+
+<h5 *ngIf="message">{{message}}</h5>

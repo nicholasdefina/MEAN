@@ -1,0 +1,5 @@
+<h4>Add a quote by {{ author }}</h4> 
+{{ quote | json}}
+<input type="text" class="form-control" [(ngModel)]="quote">  <!--ngModel binds to quote model-->
+<br>
+<button class="btn btn-primary" [disabled]="!quote" (click)="addQuote()">Add quote!</button>

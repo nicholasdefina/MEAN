@@ -1,0 +1,9 @@
+<a [routerLink]="['/addQuote', id]">Add a quote</a>
+<h4>Quotes by {{ author }}:</h4>
+<div *ngFor="let quote of quotes">
+    <h5>{{ quote['text'] }}</h5><br>
+    <span> Votes: {{ quote['votes'] }}</span>
+    <button class="btn btn-success" (click)="voteUp(quote['_id'])">Vote up</button>
+    <button class="btn btn-warning" (click)="voteDown(quote['_id'])">Vote down</button>
+    <button class="btn btn-danger" (click)="delete(quote['_id'])">Delete</button>
+</div>
