@@ -1,0 +1,24 @@
+
+<h3>Update information for {{name}}</h3>
+<form (submit)="update()">
+  <label for="name">Product Name: </label>
+  <input type="text" class="form-control" pattern="^[a-z ,.'-]+$" name="name" required minlength="3" [(ngModel)]="name" #productname = "ngModel">
+  <label for="price">Product Price: </label>
+  <input type="number" class="form-control" min="0" placeholder="0.00" step="0.01" ng-pattern-restrict="^\-?\d{0,13}?$" pattern="^\d+(?:\.\d{1,2})?$" name="price" required [(ngModel)]="price" #productprice = "ngModel"> <!--#productprice must be different than the name=price-->
+  <br>
+  <button type="submit" class="btn btn-primary" [disabled]="!name" [disabled]="!price">Add this product</button> <!--button disabled if no name/price exists-->
+  </form>
+  <br>
+  <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+  
+  <br>
+  <br>
+  <div *ngIf="!productname.valid">
+    <h6 *ngIf="productname.errors.required">Name field cannot be blank.</h6>
+    <h6 *ngIf="productname.errors.pattern">Name cannot contain special characters.</h6>
+    <h6 *ngIf="productname.errors.minlength">3 Characters required for name.</h6>
+  </div>
+  <div *ngIf="!productprice.valid">
+    <h6 *ngIf="productprice.errors.required">Please enter a numeric price.</h6>
+    <h6 *ngIf="productprice.errors.pattern">Price cannot be negative and can only contain two decimal values.</h6>
+  </div>

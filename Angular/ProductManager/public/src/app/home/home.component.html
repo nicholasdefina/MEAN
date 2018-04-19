@@ -1,0 +1,9 @@
+<a [routerLink]="['/new']">Add a product</a>  <!-- routerlink in an A tag to new route in routing module-->
+<p>__________________________________________________________________________</p>
+<div *ngFor="let product of products">  <!--cycle through each product object-->
+    <h4>{{ product['name'] }}</h4>
+    <h4>{{product['price']}}</h4>
+    <button class="btn btn-primary" [routerLink]="['/edit', product['_id']]">Edit</button>
+    <button class="btn btn-danger" (click)="delete(product['_id'])">Delete</button>
+    <p>______________________________________________________________________</p>
+</div>
